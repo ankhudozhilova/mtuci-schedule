@@ -1,10 +1,12 @@
-class Application:
+from senders.senderController import SenderController
+from commands.commandController import CommandController
 
-    def __init__(self):
-        pass
+
+class Application:
+    senderController = SenderController()
+    commandController = CommandController()
 
     def start(self):
-        pass
-
-    def __del__(self):
-        pass
+        cmds = self.senderController.getCommands()
+        for cmd in cmds:
+            self.commandController.executeCommand(cmd)
