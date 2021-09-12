@@ -1,4 +1,5 @@
 from openpyxl import load_workbook
+import os
 
 
 class Parser:
@@ -96,7 +97,8 @@ class Parser:
             Parser.Error()
 
 
-file = load_workbook('Schedule.xlsx').active
+data = (str(os.path.abspath('MySchedule.xlsx'))).replace('parsers', 'data')
+file = load_workbook(data).active
 group_names = []
 dictionary = {'monday': [],
               'tuesday': [],
