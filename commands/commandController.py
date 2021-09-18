@@ -2,12 +2,11 @@ from commands.baseCommand import BaseCommand
 from commands.commands.errorCommand import ErrorCommand
 from commands.commands.helloCommand import HelloCommand
 
-
 class CommandController:
     cmds = {
         "hello": HelloCommand(),
         "error": ErrorCommand(),
-        "start": HelloCommand()
+        "start": HelloCommand(),
     }
 
     @staticmethod
