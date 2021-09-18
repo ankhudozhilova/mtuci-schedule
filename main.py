@@ -1,7 +1,6 @@
-import application.application as app
-import senders.telegramSender as ts
+from application.application import Application
 
 
 if __name__ == "__main__":
-    app = app.Application()
+    app = Application()
     app.start()
