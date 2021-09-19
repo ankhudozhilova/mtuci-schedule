@@ -1,6 +1,6 @@
 import requests
 
-import senders.baseSender as bs
+import views.baseSender as bs
 
 
 class TelegramSender(bs.BaseSender):

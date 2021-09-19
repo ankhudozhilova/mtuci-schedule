@@ -1,4 +1,4 @@
-from senders.senderController import SenderController
+from views.senderController import SenderController
 
 
 class BaseCommand:

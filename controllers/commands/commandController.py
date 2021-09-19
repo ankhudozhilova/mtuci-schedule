@@ -1,6 +1,6 @@
-from commands.baseCommand import BaseCommand
-from commands.commands.errorCommand import ErrorCommand
-from commands.commands.helloCommand import HelloCommand
+from controllers.commands.baseCommand import BaseCommand
+from controllers.commands.commands.errorCommand import ErrorCommand
+from controllers.commands.commands.helloCommand import HelloCommand
 
 class CommandController:
     cmds = {
