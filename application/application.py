@@ -1,5 +1,5 @@
-from senders.senderController import SenderController
-from commands.commandController import CommandController
+from views.senderController import SenderController
+from controllers.commands.commandController import CommandController
 
 import pickle
 

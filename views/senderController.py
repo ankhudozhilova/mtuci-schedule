@@ -1,4 +1,4 @@
-from senders.telegramSender import TelegramSender
+from views.telegram.telegramSender import TelegramSender
 
 
 class SenderController:

@@ -1,4 +1,4 @@
-from parsers.parser_assistant import Assistant
+from models.parsers.parser_assistant import Assistant
 
 
 class Parser:

@@ -1,4 +1,4 @@
-from commands.baseCommand import BaseCommand
+from controllers.commands.baseCommand import BaseCommand
 
 
 class ErrorCommand(BaseCommand):
