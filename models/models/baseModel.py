@@ -26,6 +26,8 @@ class BaseModel:
         for i, data_type in enumerate(self.table_headers.values()):
             if data_type == "TEXT":
                 data[i] = f"\"{data[i]}\""
+            elif data[i] is None:
+                data[i] = "NULL"
             else:
                 data[i] = str(data[i])
         return data
@@ -33,6 +35,7 @@ class BaseModel:
     def save_data(self, data: list) -> None:
         sql_request = f"INSERT INTO {self.table_name} VALUES" \
                       f"({self.id}, {', '.join(self._convert_data(data))})"
+        print(sql_request)
         self.cur.execute(sql_request)
         self.conn.commit()
 
