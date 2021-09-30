@@ -8,7 +8,7 @@ def Adding(file, group_names):
 
 
 class Assistant:
-    data = (str(os.path.abspath('Schedule.xlsx'))).replace('parsers', 'data')
+    data = (str(os.path.abspath('Schedule.xlsx'))).replace('parsers', 'data').replace('models', '')
     file = load_workbook(data).active
     dictionary = {'monday': [],
                   'tuesday': [],
@@ -16,7 +16,9 @@ class Assistant:
                   'thursday': [],
                   'friday': [],
                   'saturday': []}
-    days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
+    days = []
     group_names = []
+    name_group = []
+    group = None
 
     Adding(file, group_names)
