@@ -21,34 +21,54 @@ class ExcelToDataBase:
         self.group_name = self.name_group[0]
         self.day_name = key.title()
         for element in day:
-            element = element.lower()
-            self.evens = int(element[0])
-            element = element.replace('{0} '.format(element[0]), '')
-            if 'пары нет' in element:
-                self.subject = 'Пары нет'
+            element = ' '.join(element.lower().split())
+            if element[0] == 'с':
+                self.subject = 'СРС'
             else:
-                if 'ауд.' in element:
-                    self.rooms = element[element.index('ауд.'):]
-                    element = element.replace('{0}'.format(element[element.index('ауд.'):]), '')
-                if 'пр.з.' in element:
-                    self.lesson_type = 2
-                    element = element.replace('пр.з.', ',')
-                if 'лаб.' in element:
-                    self.lesson_type = 3
-                    element = element.replace('лаб.', ',')
-                if 'лек.' in element:
-                    self.lesson_type = 1
-                    element = element.replace('лек.', ',')
-                subject_tutor = ' '.join(element.split()).split(sep=',')
-                self.subject = subject_tutor[0].title().strip()
-                if self.subject == 'Срс None':
-                    self.subject = 'СРС'
-                if len(subject_tutor) == 2:
-                    if subject_tutor[1] != '':
-                        self.tutor = subject_tutor[1].title().strip()
+                self.evens = int(element[0])
+                element = element[2:]
+                if 'пары нет' in element:
+                    self.subject = 'Пары нет'
+                else:
+                    if 'пр.з.' in element:
+                        self.lesson_type = 2
+                        element = element.replace('пр.з.', '')
+                    if 'лек.' in element:
+                        self.lesson_type = 1
+                        element = element.replace('лек.', '')
+                    if 'лаб.' in element:
+                        self.lesson_type = 3
+                        element = element.replace('лаб.', '')
+                    element = ' '.join(element.lower().split())
+                    if 'ауд.' in element:
+                        if '!' in element:
+                            element = element.split(sep='!')
+                            self.subject = element[0].title()
+                            if 'ауд.' in element[1]:
+                                self.rooms = element[1].title()
+                                self.tutor = element[2].title()
+                            if 'ауд.' in element[2]:
+                                self.rooms = element[2].title()
+                                self.tutor = element[2].title()
+                        else:
+                            self.rooms = element[element.index('ауд.'):].title()
+                            element = element.replace(element[element.index('ауд.'):], '')
+                            if 'доц.' in element:
+                                self.tutor = element[element.index('доц.'):].title()
+                                element = element.replace(element[element.index('доц.'):], '')
+                            if 'ст.пр.' in element:
+                                self.tutor = element[element.index('ст.пр.'):].title()
+                                element = element.replace(element[element.index('ст.пр.'):], '')
+                            if 'проф.' in element:
+                                self.tutor = element[element.index('проф.'):].title()
+                                element = element.replace(element[element.index('проф.'):], '')
+                            if 'попов а.п. ' in element:
+                                self.tutor = element[element.index('попов а.п. '):].title()
+                                element = element.replace(element[element.index('попов а.п. '):], '')
+                            self.subject = element.title()
+                    else:
+                        self.subject = element.replace('!', '').title()
             collection = [self.evens, self.lesson_type, self.day_name, self.subject, self.group_name, self.tutor,
                           self.rooms]
             print(collection)  # Убрать !!!
-            if self.subject == 'СРС':
-                break
             self.evens = self.lesson_type = self.subject = self.tutor = self.rooms = None

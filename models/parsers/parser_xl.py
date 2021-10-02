@@ -27,16 +27,28 @@ class Parser:
                     range(2, 4))
                 if count == 5:
                     break
+
+                if lines_1_2[0] is None and lines_1_2[1] is not None and lines_3_4[0] is None:
+                    schedule.append('СРС')
+                    break
                 if lines_1_2[0] is None and lines_1_2[1] is None:
                     schedule.append('1 Пары нет')
-                if lines_1_2[0] is not None and lines_1_2[1] is not None:
-                    schedule.append('1 {0} {1}'.format(lines_1_2[0], lines_1_2[1]))
-                if lines_1_2[0] is None and lines_1_2[1] is not None:
+                if lines_1_2[0] is None and lines_1_2[1] is not None and lines_3_4[0] is not None and lines_3_4[1] \
+                        is None:
                     schedule.append('0 {0} {1}'.format(lines_1_2[1], lines_3_4[0]))
-                elif lines_3_4[0] is not None and lines_3_4[1] is not None:
-                    schedule.append('2 {0} {1}'.format(lines_3_4[0], lines_3_4[1]))
+                if lines_1_2[0] is not None and lines_1_2[1] is not None:
+                    if lines_3_4[0] is not None and 'ФИЗИЧЕСКАЯ' not in lines_3_4[0] and lines_3_4[1] is None:
+                        schedule.append('0 {0}! {1}! {2}'.format(lines_1_2[0], lines_1_2[1], lines_3_4[0]))
+                    else:
+                        schedule.append('1 {0} {1}'.format(lines_1_2[0], lines_1_2[1]))
+                if lines_3_4[0] is not None and lines_3_4[1] is not None:
+                    if lines_1_2[0] is None and lines_1_2[1] is not None:
+                        schedule.append('0 {0}! {1}! {2}'.format(lines_1_2[1], lines_3_4[0], lines_3_4[1]))
+                    else:
+                        schedule.append('2 {0} {1}'.format(lines_3_4[0], lines_3_4[1]))
                 if lines_3_4[0] is None and lines_3_4[1] is None:
                     schedule.append('2 Пары нет')
+
                 index_line += 4
                 count += 1
             self.dictionary[self.days[0]] = schedule
