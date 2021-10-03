@@ -25,5 +25,3 @@ class GroupCommand(BaseCommand):
             msg = 'Вы добавлены в базу данных'
 
         super(GroupCommand, self).makeAnswer(msg)
-
-print(GroupCommand().command)
