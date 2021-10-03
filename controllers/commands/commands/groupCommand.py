@@ -5,7 +5,7 @@ class GroupCommand(BaseCommand):
 
     def __init__(self):
         self.db = UserModel()
-        self.group = self.command['text'].replace('/group ','')
+        self.group = self.command['text'].replace('group ','').upper()
         self.tgId = self.command['chat_id']
         self.service = self.command['service']
         self.legalGroups = ['БВТ210' + str(i) for i in range(1,9)]
@@ -25,3 +25,5 @@ class GroupCommand(BaseCommand):
             msg = 'Вы добавлены в базу данных'
 
         super(GroupCommand, self).makeAnswer(msg)
+
+print(GroupCommand().command)
