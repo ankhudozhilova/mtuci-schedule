@@ -1,4 +1,5 @@
-from models.parsers.parser_assistant import Assistant
+from models.parsers.baseParserAssistance import Assistant
+from models.models.timeTableModel import TimeTableModel
 
 
 class ExcelToDataBase:
@@ -8,6 +9,7 @@ class ExcelToDataBase:
         self.dictionary = Assistant.dictionary
         self.group = Assistant.group
         self.name_group = Assistant.name_group
+        self.bd = TimeTableModel()
 
         ExcelToDataBase.OverTake(self)
 
@@ -70,5 +72,5 @@ class ExcelToDataBase:
                         self.subject = element.replace('!', '').title()
             collection = [self.evens, self.lesson_type, self.day_name, self.subject, self.group_name, self.tutor,
                           self.rooms]
-            print(collection)  # Убрать !!!
+            self.bd.save_data(collection)
             self.evens = self.lesson_type = self.subject = self.tutor = self.rooms = None

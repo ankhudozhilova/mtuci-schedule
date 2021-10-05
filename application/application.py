@@ -1,5 +1,6 @@
 from views.senderController import SenderController
 from controllers.commands.commandController import CommandController
+from models.parsers.baseParser import BaseParser
 
 import pickle
 
@@ -7,11 +8,13 @@ import pickle
 class Application:
     senderController = SenderController()
     commandController = CommandController()
+    baseParser = BaseParser()
 
     def __init__(self):
         self.old_cmds = []
         with open("data/old_cmds_data.pickle", "rb") as f:
             self.old_cmds = pickle.load(f)
+        self.baseParser.Examination()
 
     def start(self):
         while True:

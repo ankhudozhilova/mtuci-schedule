@@ -1,8 +1,9 @@
-from models.parsers.parser_assistant import Assistant
-from models.converts.baseParser import ExcelToDataBase
+from models.parsers.baseParserAssistance import Assistant
+from models.converts.excelToDataBase import ExcelToDataBase
+from models.models.timeTableModel import TimeTableModel
 
 
-class Parser:
+class BaseParser:
 
     def __init__(self):
         self.file = Assistant.file
@@ -12,18 +13,16 @@ class Parser:
         self.group = Assistant.group
         self.name_group = Assistant.name_group
 
-        Parser.Examination(self)
-
     def Logic(self):
         index_line, self.group = 12, self.group_names.index(self.group) + 3
         for num in range(6):
             schedule, count = [], 0
             while index_line < 132:
                 lines_1_2 = list(
-                    self.file[index_line + i][self.group - (Parser.Union(self, index_line))].value for i in
+                    self.file[index_line + i][self.group - (BaseParser.Union(self, index_line))].value for i in
                     range(0, 2))
                 lines_3_4 = list(
-                    self.file[index_line + i][self.group - (Parser.Union(self, index_line + 2))].value for i in
+                    self.file[index_line + i][self.group - (BaseParser.Union(self, index_line + 2))].value for i in
                     range(2, 4))
                 if count == 5:
                     break
@@ -58,19 +57,18 @@ class Parser:
         self.name_group.clear()
 
     def Examination(self):
+        ttb = TimeTableModel()
+        ttb.drop()
         for group in self.group_names:
             self.group = group
             self.name_group.append(group)
             for keys in self.dictionary:
                 self.dictionary[keys] = []
                 self.days.append(keys)
-            Parser.Logic(self)
+            BaseParser.Logic(self)
 
     def Union(self, index_line):
         cell = self.file.cell(row=index_line, column=int(self.group) + 1)
         if type(cell).__name__ == 'MergedCell':
             return 1
         return 0
-
-
-Parser()  # Убрать !!!

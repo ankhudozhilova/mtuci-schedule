@@ -35,6 +35,7 @@ class BaseModel:
     def save_data(self, data: list) -> None:
         sql_request = f"INSERT INTO {self.table_name} VALUES" \
                       f"({self.id}, {', '.join(self._convert_data(data))})"
+
         self.cur.execute(sql_request)
         self.conn.commit()
 
@@ -46,6 +47,11 @@ class BaseModel:
     def remove_data(self, condition: list) -> None:
         sql_request = f"DELETE FROM {self.table_name} WHERE {str(condition[0])} = {str(condition[1])}"
 
+        self.cur.execute(sql_request)
+        self.conn.commit()
+
+    def drop(self):
+        sql_request = f"DROP TABLE {self.table_name};"
         self.cur.execute(sql_request)
         self.conn.commit()
 
